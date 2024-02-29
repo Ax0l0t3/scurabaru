@@ -32,6 +32,7 @@ function App() {
   const [inputsIds, setInputsIds] = useState([]);
   const [displayInputs, setDisplayInputs] = useState([]);
   const [cleanInputs, setCleanInputs] = useState([]);
+  const [selectedObject, setSelectedObject] = useState({});
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -76,10 +77,16 @@ function App() {
   const handleRadioClick = (e) => {
     const answerObject = sortedAnswers[buttonLabels.indexOf(e.target.value)];
     coordinatesArray({ ...answerObject }, true);
+    setSelectedObject(answerObject);
   };
 
   const handleInputChange = (e) => {
-    console.log(e.target);
+    const [col, row] = e.target.id.split(",", 2);
+    let colNumber = parseInt(col);
+    let rowNumber = parseInt(row);
+    if (selectedObject.direction === 0) rowNumber++;
+    if (selectedObject.direction === 1) colNumber++;
+    document.getElementById(`${colNumber},${rowNumber},b`).focus();
   };
 
   useEffect(() => {
