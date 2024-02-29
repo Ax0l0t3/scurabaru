@@ -52,7 +52,7 @@
   color: white;
 }
 
-.radio-input:checked ~ span{
+.radio-input:checked ~ span {
   padding: 0 1rem;
   transition: all 0.25s;
   background-color: #cc2c2c;

@@ -53,7 +53,7 @@ function App() {
     gridColumnStart: col,
     gridRowStart: row,
     border: highlighted ? "3px solid #ccaa2d" : "3px solid #785598",
-    transition: "all 0.2s"
+    transition: "all 0.2s",
   });
 
   const coordinatesArray = ({ word, direction, column, row }, border) => {
@@ -78,15 +78,15 @@ function App() {
     coordinatesArray({ ...answerObject }, true);
   };
 
-  const handleInputChange = e => {
-    console.log(e.target)
-  }
+  const handleInputChange = (e) => {
+    console.log(e.target);
+  };
 
   useEffect(() => {
     gridPoints = [];
-    for(let k in sortedAnswers){
-      coordinatesArray({...sortedAnswers[k]}, false);
-    };
+    for (let k in sortedAnswers) {
+      coordinatesArray({ ...sortedAnswers[k] }, false);
+    }
     setCleanInputs(gridPoints);
     setInputsIds(gridPoints);
   }, []);
