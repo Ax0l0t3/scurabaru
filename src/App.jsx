@@ -53,6 +53,7 @@ function App() {
     gridColumnStart: col,
     gridRowStart: row,
     border: highlighted ? "3px solid #ccaa2d" : "3px solid #785598",
+    transition: "all 0.2s"
   });
 
   const coordinatesArray = ({ word, direction, column, row }, border) => {
@@ -83,16 +84,9 @@ function App() {
 
   useEffect(() => {
     gridPoints = [];
-    coordinatesArray({ ...aditivoWord }, false);
-    coordinatesArray({ ...asWord }, false);
-    coordinatesArray({ ...axolozebrasWord }, false);
-    coordinatesArray({ ...disterenteWord }, false);
-    coordinatesArray({ ...epazoteWord }, false);
-    coordinatesArray({ ...fantabulosaWord }, false);
-    coordinatesArray({ ...pronombresWord }, false);
-    coordinatesArray({ ...rapositaWord }, false);
-    coordinatesArray({ ...sorpresaWord }, false);
-    coordinatesArray({ ...traviesoWord }, false);
+    for(let k in sortedAnswers){
+      coordinatesArray({...sortedAnswers[k]}, false);
+    };
     setCleanInputs(gridPoints);
     setInputsIds(gridPoints);
   }, []);
