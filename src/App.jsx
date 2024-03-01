@@ -87,8 +87,10 @@ function App() {
     const [col, row] = e.target.id.split(",", 2);
     let colNumber = parseInt(col);
     let rowNumber = parseInt(row);
-    if (selectedObject.direction === 0) rowNumber++;
-    if (selectedObject.direction === 1) colNumber++;
+    do {
+      if (selectedObject.direction === 0) rowNumber++;
+      if (selectedObject.direction === 1) colNumber++;
+    } while (document.getElementById(`${colNumber},${rowNumber},b`).value);
     document.getElementById(`${colNumber},${rowNumber},b`).focus();
   };
 
