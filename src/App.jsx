@@ -49,6 +49,7 @@ function App() {
   const gridStyling = (col, row, highlighted) => ({
     backgroundColor: "white",
     borderRadius: "5px",
+    cursor: "default",
     height: "100%",
     width: "100%",
     gridColumnStart: col,
