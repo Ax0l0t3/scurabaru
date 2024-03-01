@@ -33,6 +33,7 @@ function App() {
   const [displayInputs, setDisplayInputs] = useState([]);
   const [cleanInputs, setCleanInputs] = useState([]);
   const [selectedObject, setSelectedObject] = useState({});
+  const [highlightedObject, setHighlightedObject] = useState([]);
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -46,15 +47,17 @@ function App() {
     "Planta indígena mexicana",
   ];
 
-  const gridStyling = (col, row, highlighted) => ({
-    backgroundColor: "white",
+  const gridStyling = (col, row, selected, highlighted) => ({
+    backgroundColor: highlighted ? "#FFEBCC" : "white",
+    border: selected ? "3px solid #ccaa2d" : "3px solid #785598",
     borderRadius: "5px",
     cursor: "default",
     height: "100%",
-    width: "100%",
     gridColumnStart: col,
     gridRowStart: row,
-    border: highlighted ? "3px solid #ccaa2d" : "3px solid #785598",
+    width: "100%",
+    textAlign: "center",
+    textTransform: "uppercase",
     transition: "all 0.2s",
   });
 
@@ -100,6 +103,27 @@ function App() {
     if (e.target.value.length > 1) e.target.value = e.target.value.at(1);
   };
 
+  const handleMouseEnter = (e) => {
+    const answerObject = sortedAnswers[buttonLabels.indexOf(e.target.id)];
+    let { word, direction, column, row } = answerObject;
+    let arrTemp = [];
+    for (let k in word) {
+      if (direction === 0) {
+        arrTemp.push(`${column},${row}`);
+        row++;
+      }
+      if (direction === 1) {
+        arrTemp.push(`${column},${row}`);
+        column++;
+      }
+    }
+    setHighlightedObject(arrTemp);
+  };
+
+  const handleMouseLeave = () => {
+    setHighlightedObject([]);
+  };
+
   useEffect(() => {
     gridPoints = [];
     for (let k in sortedAnswers) {
@@ -127,6 +151,8 @@ function App() {
     setDisplayInputs(limpieza);
   }, [inputsIds]);
 
+  console.log("Render App");
+
   return (
     <div className="snow-background">
       <TopSvg />
@@ -142,19 +168,27 @@ function App() {
                 value={element}
                 onChange={handleRadioClick}
               />
-              <span>{element}</span>
+              <span
+                id={element}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                {element}
+              </span>
             </label>
           ))}
         </div>
         {/*Game Canvas Div */}
         <div className="w-1/2 bg-[#231e1e] rounded-2xl my-14 mr-6 game-grid">
-          {displayInputs.map((elemento, index) => {
-            const [colNumber, rowNumber, border] = elemento.split(",");
+          {displayInputs.map((element, index) => {
+            const [colNumber, rowNumber, border] = element.split(",");
+            const forCoincidence = element.split(/,b/, 1);
+            const isCoincidence = highlightedObject.includes(forCoincidence[0]);
             return (
               <input
-                id={elemento}
+                id={element}
                 key={index}
-                style={gridStyling(colNumber, rowNumber, border)}
+                style={gridStyling(colNumber, rowNumber, border, isCoincidence)}
                 onChange={handleInputChange}
               />
             );
