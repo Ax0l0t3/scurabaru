@@ -78,6 +78,9 @@ function App() {
     const answerObject = sortedAnswers[buttonLabels.indexOf(e.target.value)];
     coordinatesArray({ ...answerObject }, true);
     setSelectedObject(answerObject);
+    document
+      .getElementById(`${answerObject.column},${answerObject.row}`)
+      .focus();
   };
 
   const handleInputChange = (e) => {
