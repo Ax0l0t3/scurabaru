@@ -78,20 +78,24 @@ function App() {
     const answerObject = sortedAnswers[buttonLabels.indexOf(e.target.value)];
     coordinatesArray({ ...answerObject }, true);
     setSelectedObject(answerObject);
-    document
-      .getElementById(`${answerObject.column},${answerObject.row}`)
-      .focus();
+    const targetId = `${answerObject.column},${answerObject.row}`;
+    const targetElement = document.getElementById(targetId);
+    const focusElement = document.getElementById(`${targetId},b`);
+    if (targetElement) {
+      targetElement.focus();
+      return;
+    }
+    focusElement.focus();
   };
 
   const handleInputChange = (e) => {
     const [col, row] = e.target.id.split(",", 2);
     let colNumber = parseInt(col);
     let rowNumber = parseInt(row);
-    do {
-      if (selectedObject.direction === 0) rowNumber++;
-      if (selectedObject.direction === 1) colNumber++;
-    } while (document.getElementById(`${colNumber},${rowNumber},b`).value);
+    if (selectedObject.direction === 0) rowNumber++;
+    if (selectedObject.direction === 1) colNumber++;
     document.getElementById(`${colNumber},${rowNumber},b`).focus();
+    if (e.target.value.length > 1) e.target.value = e.target.value.at(1);
   };
 
   useEffect(() => {
