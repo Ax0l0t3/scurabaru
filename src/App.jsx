@@ -48,7 +48,7 @@ function App() {
   ];
 
   const gridStyling = (col, row, selected, highlighted) => ({
-    backgroundColor: highlighted ? "#FFEBCC" : "white",
+    backgroundColor: highlighted ? "#FCDEA2" : "white",
     border: selected ? "3px solid #ccaa2d" : "3px solid #785598",
     borderRadius: "5px",
     cursor: "default",
