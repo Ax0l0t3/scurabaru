@@ -94,7 +94,8 @@ function App() {
     let rowNumber = parseInt(row);
     if (selectedObject.direction === 0) rowNumber++;
     if (selectedObject.direction === 1) colNumber++;
-    document.getElementById(`${colNumber},${rowNumber},b`).focus();
+    const focusElement = document.getElementById(`${colNumber},${rowNumber},b`);
+    if (focusElement) focusElement.focus();
     if (e.target.value.length > 1) e.target.value = e.target.value.at(1);
   };
 
