@@ -99,11 +99,13 @@ function App() {
     if (selectedObject.direction === 0) rowNumber++;
     if (selectedObject.direction === 1) colNumber++;
     const focusElement = document.getElementById(`${colNumber},${rowNumber},b`);
-    if (focusElement){
+    if (focusElement) {
       focusElement.focus();
-    }else{
-      document.getElementById(`${selectedObject.column},${selectedObject.row},b`).focus();
-    };
+    } else {
+      document
+        .getElementById(`${selectedObject.column},${selectedObject.row},b`)
+        .focus();
+    }
     if (e.target.value.length > 1) e.target.value = e.target.value.at(1);
   };
 
