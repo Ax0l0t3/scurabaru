@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ButtomSvg } from "./assets/buttomSvg.jsx";
 import { TopSvg } from "./assets/topSvg.jsx";
+import { RightArrow } from "./assets/arrowSvg.jsx";
 import {
   aditivoWord,
   asWord,
@@ -180,6 +181,12 @@ function App() {
   return (
     <div className="snow-background">
       <TopSvg />
+      <button
+        className="review-answers bg-[#c7eef0] hover:bg-[#ccaa2d]"
+        type="button"
+      >
+        <RightArrow />
+      </button>
       <div className="flex h-full">
         {/*Form Div */}
         <div className="flex flex-col justify-around w-1/2 h-full py-14 pl-28 items-start">

@@ -65,3 +65,28 @@
   grid-template-columns: repeat(18, 1fr);
   grid-template-rows: repeat(18, 1fr);
 }
+
+.review-answers {
+  align-items: center;
+  border-radius: 300rem;
+  display: flex;
+  height: 1.5rem;
+  justify-content: center;
+  left: 8rem;
+  position: absolute;
+  top: 1.5rem;
+  width: 20rem;
+}
+
+.review-answers svg path {
+  fill: #a39ea8;
+}
+.review-answers:hover svg path {
+  fill: white;
+  transition: all 0.2s;
+}
+
+.review-answers:active {
+  box-shadow: inset 0 2px 1px #68646b;
+  transform: translateY(2px);
+}
