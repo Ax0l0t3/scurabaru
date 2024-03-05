@@ -34,6 +34,8 @@ function App() {
   const [cleanInputs, setCleanInputs] = useState([]);
   const [selectedObject, setSelectedObject] = useState({});
   const [highlightedObject, setHighlightedObject] = useState([]);
+  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+  const [mouseInDiv, setMouseInDiv] = useState(false);
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -59,6 +61,11 @@ function App() {
     textAlign: "center",
     textTransform: "uppercase",
     transition: "all 0.2s",
+  });
+
+  const anotherStyle = (mouseCoordinates) => ({
+    top: mouseCoordinates.x,
+    left: mouseCoordinates.y,
   });
 
   const coordinatesArray = ({ word, direction, column, row }, border) => {
@@ -130,6 +137,17 @@ function App() {
     setHighlightedObject([]);
   };
 
+  const handleDivMouseOver = (e) => {
+    const localX = e.clientY;
+    const localY = e.clientX;
+    setMouseInDiv(true);
+    setMouseCoordinates({ x: localX, y: localY });
+  };
+
+  const handleDivMouseOut = () => {
+    setMouseInDiv(false);
+  };
+
   useEffect(() => {
     gridPoints = [];
     for (let k in sortedAnswers) {
@@ -185,7 +203,19 @@ function App() {
           ))}
         </div>
         {/*Game Canvas Div */}
-        <div className="w-1/2 bg-[#231e1e] rounded-2xl my-14 mr-6 game-grid">
+        <div
+          className="w-1/2 bg-[#231e1e] rounded-2xl my-14 mr-6 game-grid"
+          onMouseMove={handleDivMouseOver}
+          onMouseOut={handleDivMouseOut}
+        >
+          {mouseInDiv && (
+            <div
+              className="flex w-auto h-auto absolute bg-[#cc2c2c]/50 z-50 rounded-full px-4 py-2 text-white"
+              style={anotherStyle(mouseCoordinates)}
+            >
+              <span>Selecciona una opción de la izquierda</span>
+            </div>
+          )}
           {displayInputs.map((element, index) => {
             const [colNumber, rowNumber, border] = element.split(",");
             const forCoincidence = element.split(/,b/, 1);
