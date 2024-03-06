@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
   font-family: "erika";
-  src:url("./assets/erika-type.ttf");
+  src: url("./assets/erika-type.ttf");
 }
 
 body {
@@ -13,7 +13,6 @@ body {
   height: 100vh;
 }
 
-
-input{
+input {
   font-family: "erika";
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ButtomSvg } from "./assets/buttomSvg.jsx";
 import { TopSvg } from "./assets/topSvg.jsx";
 import { RightArrow } from "./assets/arrowSvg.jsx";
@@ -15,6 +16,7 @@ import {
   traviesoWord,
 } from "./utils/constants.jsx";
 import "./app.css";
+import { ModalDialog } from "./ModalDialog.jsx";
 
 function App() {
   let gridPoints = [];
@@ -39,6 +41,7 @@ function App() {
   const [mouseInDiv, setMouseInDiv] = useState(false);
   const [answersState, setAnswersState] = useState(false);
   const [wrongCharsIds, setWrongCharsIds] = useState([]);
+  const [solved, setSolved] = useState(false);
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -191,8 +194,8 @@ function App() {
   }, [inputsIds]);
 
   useEffect(() => {
-    let wrongCharArray = [];
     if (answersState) {
+      let wrongCharArray = [];
       for (let i in sortedAnswers) {
         let { word, direction, column, row } = { ...sortedAnswers[i] };
         [...word].map((char) => {
@@ -204,13 +207,16 @@ function App() {
           if (direction === 1) column++;
         });
       }
-      setWrongCharsIds(wrongCharArray);
+      wrongCharArray.length > 0
+        ? setWrongCharsIds(wrongCharArray)
+        : setSolved(true);
     }
     setAnswersState(false);
   }, [displayInputs]);
 
   return (
     <div className="snow-background">
+      {solved && createPortal(<ModalDialog />, document.body)}
       <TopSvg />
       <button
         className="review-answers bg-[#c7eef0] hover:bg-[#ccaa2d]"
