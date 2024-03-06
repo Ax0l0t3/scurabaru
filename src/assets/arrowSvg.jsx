@@ -1,4 +1,3 @@
-
 export const RightArrow = () => {
   return (
     <svg

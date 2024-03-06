@@ -37,6 +37,8 @@ function App() {
   const [highlightedObject, setHighlightedObject] = useState([]);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
   const [mouseInDiv, setMouseInDiv] = useState(false);
+  const [answersState, setAnswersState] = useState(false);
+  const [wrongCharsIds, setWrongCharsIds] = useState([]);
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -50,8 +52,8 @@ function App() {
     "Planta indígena mexicana",
   ];
 
-  const gridStyling = (col, row, selected, highlighted) => ({
-    backgroundColor: highlighted ? "#FCDEA2" : "white",
+  const gridStyling = (col, row, selected, backgroundString) => ({
+    backgroundColor: backgroundString || "white",
     border: selected ? "3px solid #ccaa2d" : "3px solid #785598",
     borderRadius: "5px",
     cursor: "default",
@@ -120,18 +122,22 @@ function App() {
   const handleMouseEnter = (e) => {
     const answerObject = sortedAnswers[buttonLabels.indexOf(e.target.id)];
     let { word, direction, column, row } = answerObject;
-    let arrTemp = [];
+    let highlightedInputs = [];
     for (let k in word) {
       if (direction === 0) {
-        arrTemp.push(`${column},${row}`);
+        highlightedInputs.push(`${column},${row}`);
         row++;
       }
       if (direction === 1) {
-        arrTemp.push(`${column},${row}`);
+        highlightedInputs.push(`${column},${row}`);
         column++;
       }
     }
-    setHighlightedObject(arrTemp);
+    const charsToCorrect = wrongCharsIds.filter(
+      (coordinate) => !highlightedInputs.includes(coordinate),
+    );
+    setHighlightedObject(highlightedInputs);
+    setWrongCharsIds(charsToCorrect);
   };
 
   const handleMouseLeave = () => {
@@ -147,6 +153,14 @@ function App() {
 
   const handleDivMouseOut = () => {
     setMouseInDiv(false);
+  };
+
+  const submitAnswers = () => {
+    // Clean the inputs
+    for (let k in sortedAnswers) {
+      coordinatesArray({ ...sortedAnswers[k] }, false);
+    }
+    setAnswersState(true);
   };
 
   useEffect(() => {
@@ -176,7 +190,24 @@ function App() {
     setDisplayInputs(limpieza);
   }, [inputsIds]);
 
-  console.log("Render App");
+  useEffect(() => {
+    let wrongCharArray = [];
+    if (answersState) {
+      for (let i in sortedAnswers) {
+        let { word, direction, column, row } = { ...sortedAnswers[i] };
+        [...word].map((char) => {
+          const input = document.getElementById(`${column},${row}`);
+          if (char !== input.value) {
+            wrongCharArray.push(`${column},${row}`);
+          }
+          if (direction === 0) row++;
+          if (direction === 1) column++;
+        });
+      }
+      setWrongCharsIds(wrongCharArray);
+    }
+    setAnswersState(false);
+  }, [displayInputs]);
 
   return (
     <div className="snow-background">
@@ -184,6 +215,7 @@ function App() {
       <button
         className="review-answers bg-[#c7eef0] hover:bg-[#ccaa2d]"
         type="button"
+        onClick={submitAnswers}
       >
         <RightArrow />
       </button>
@@ -226,12 +258,16 @@ function App() {
           {displayInputs.map((element, index) => {
             const [colNumber, rowNumber, border] = element.split(",");
             const forCoincidence = element.split(/,b/, 1);
-            const isCoincidence = highlightedObject.includes(forCoincidence[0]);
+            const isHighlight =
+              highlightedObject.includes(forCoincidence[0]) && "#fcdea2";
+            const isWrong =
+              wrongCharsIds.includes(forCoincidence[0]) && "#d35f5f";
+            const elString = isHighlight || isWrong;
             return (
               <input
                 id={element}
                 key={index}
-                style={gridStyling(colNumber, rowNumber, border, isCoincidence)}
+                style={gridStyling(colNumber, rowNumber, border, elString)}
                 onChange={handleInputChange}
               />
             );
