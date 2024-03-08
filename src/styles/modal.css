@@ -1,0 +1,15 @@
+.download-map {
+  transform: scale(80%);
+}
+
+.download-map svg circle {
+  fill: #000;
+}
+
+.download-map:hover svg circle {
+  fill: #cc2c2c;
+}
+
+.download-map:hover svg {
+  transform: scale(104%);
+}

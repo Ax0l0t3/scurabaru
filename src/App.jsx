@@ -15,7 +15,7 @@ import {
   sorpresaWord,
   traviesoWord,
 } from "./utils/constants.jsx";
-import "./app.css";
+import "./styles/app.css";
 import { ModalDialog } from "./ModalDialog.jsx";
 
 function App() {
@@ -166,6 +166,10 @@ function App() {
     setAnswersState(true);
   };
 
+  const downloadMap = () => {
+    console.log("Map Downloadded");
+  };
+
   useEffect(() => {
     gridPoints = [];
     for (let k in sortedAnswers) {
@@ -216,7 +220,8 @@ function App() {
 
   return (
     <div className="snow-background">
-      {solved && createPortal(<ModalDialog />, document.body)}
+      {solved &&
+        createPortal(<ModalDialog handleButton={downloadMap} />, document.body)}
       <TopSvg />
       <button
         className="review-answers bg-[#c7eef0] hover:bg-[#ccaa2d]"

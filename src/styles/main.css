@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: "erika";
+  src: url("../assets/erika-type.ttf");
+}
+
+body {
+  background-color: #e6dfed;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+input {
+  font-family: "erika";
+}
