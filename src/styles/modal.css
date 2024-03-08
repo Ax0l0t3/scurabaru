@@ -2,14 +2,14 @@
   transform: scale(80%);
 }
 
-.download-map svg circle {
+.download-map svg g path {
   fill: #000;
 }
 
-.download-map:hover svg circle {
+.download-map:hover svg g path {
   fill: #cc2c2c;
 }
 
 .download-map:hover svg {
-  transform: scale(104%);
+  transform: scale(105%);
 }
