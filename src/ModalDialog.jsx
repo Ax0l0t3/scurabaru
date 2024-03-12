@@ -1,8 +1,7 @@
-import PropTypes from "prop-types";
 import { DownloadMap } from "./assets/downloadMap.jsx";
 import "./styles/modal.css";
 
-export const ModalDialog = ({ handleButton = Function.prototype }) => {
+export const ModalDialog = () => {
   return (
     <div className="bg-black/50 z-50 absolute top-0 left-0 w-screen h-screen font-['erika']">
       <div className="flex items-center flex-col justify-around rounded-md bg-red-100 w-1/2 h-1/2 mt-[12%] ml-[25%]">
@@ -18,14 +17,14 @@ export const ModalDialog = ({ handleButton = Function.prototype }) => {
             <p className="pt-4">Ahora que seguirá?</p>
           </div>
         </div>
-        <button onClick={handleButton} className="download-map" type="button">
+        <a
+          href="/src/assets/cuartoDrawing.jpg"
+          download="treasure-map"
+          className="download-map"
+        >
           <DownloadMap />
-        </button>
+        </a>
       </div>
     </div>
   );
-};
-
-ModalDialog.propType = {
-  handleButton: PropTypes.func,
 };
