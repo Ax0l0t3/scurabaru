@@ -17,6 +17,7 @@ import {
 } from "./utils/constants.jsx";
 import "./styles/app.css";
 import { ModalDialog } from "./ModalDialog.jsx";
+import { ModalPassword } from "./ModalPassword.jsx";
 
 function App() {
   let gridPoints = [];
@@ -42,6 +43,7 @@ function App() {
   const [answersState, setAnswersState] = useState(false);
   const [wrongCharsIds, setWrongCharsIds] = useState([]);
   const [solved, setSolved] = useState(false);
+  const [passWord, setPassword] = useState("");
   const buttonLabels = [
     "Sustantivo para añadir o mejorar cualidades",
     "Niño inquieto con cierto ingenio",
@@ -166,6 +168,8 @@ function App() {
     setAnswersState(true);
   };
 
+  const passwordChange = (e) => setPassword(e.target.value);
+
   useEffect(() => {
     gridPoints = [];
     for (let k in sortedAnswers) {
@@ -216,8 +220,16 @@ function App() {
 
   return (
     <div className="snow-background">
-      {solved &&
-        createPortal(<ModalDialog />, document.body)}
+      {passWord !== "jjjjj"
+        ? createPortal(
+            <ModalPassword
+              inputChange={passwordChange}
+              passwordValue={passWord}
+            />,
+            document.body,
+          )
+        : null}
+      {solved && createPortal(<ModalDialog />, document.body)}
       <TopSvg />
       <button
         className="review-answers bg-[#c7eef0] hover:bg-[#ccaa2d]"
