@@ -13,8 +13,10 @@ export const ModalDialog = () => {
             alt="Cuarto Drawing .jpg"
           />
           <div className="flex items-center justify-center flex-col w-1/2">
-            <p>Vas muy bien huitlaconcha</p>
-            <p className="pt-4">Ahora que seguirá?</p>
+            <p className="text-center">Excelente huitlaconcha</p>
+            <p className="pt-4 text-center">
+              Tan inteligente como siempre. Podrás adivinar que es lo que sigue ahora?
+            </p>
           </div>
         </div>
         <a

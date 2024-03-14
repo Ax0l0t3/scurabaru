@@ -18,6 +18,7 @@ import {
 import "./styles/app.css";
 import { ModalDialog } from "./ModalDialog.jsx";
 import { ModalPassword } from "./ModalPassword.jsx";
+import { MouseTooltip } from "./MouseTooltip.jsx";
 
 function App() {
   let gridPoints = [];
@@ -69,11 +70,6 @@ function App() {
     textAlign: "center",
     textTransform: "uppercase",
     transition: "all 0.2s",
-  });
-
-  const anotherStyle = (mouseCoordinates) => ({
-    top: mouseCoordinates.x,
-    left: mouseCoordinates.y,
   });
 
   const coordinatesArray = ({ word, direction, column, row }, border) => {
@@ -266,14 +262,7 @@ function App() {
           onMouseMove={handleDivMouseOver}
           onMouseOut={handleDivMouseOut}
         >
-          {mouseInDiv && (
-            <div
-              className="flex w-auto h-auto absolute bg-[#cc2c2c]/50 z-50 rounded-full px-4 py-2 text-white"
-              style={anotherStyle(mouseCoordinates)}
-            >
-              <span>Selecciona una opción de la izquierda</span>
-            </div>
-          )}
+          {mouseInDiv && <MouseTooltip mouseXY={mouseCoordinates} />}
           {displayInputs.map((element, index) => {
             const [colNumber, rowNumber, border] = element.split(",");
             const forCoincidence = element.split(/,b/, 1);
