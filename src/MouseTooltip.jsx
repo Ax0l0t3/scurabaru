@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const MouseTooltip = ({ mouseXY }) => {
   const anotherStyle = (mouseXY) => ({
     top: mouseXY.x,
@@ -12,4 +14,8 @@ export const MouseTooltip = ({ mouseXY }) => {
       <span>Selecciona una opción de la izquierda</span>
     </div>
   );
+};
+
+MouseTooltip.propTypes = {
+  mouseXY: PropTypes.objectOf(PropTypes.number),
 };

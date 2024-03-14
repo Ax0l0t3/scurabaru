@@ -157,7 +157,7 @@ function App() {
   };
 
   const submitAnswers = () => {
-    // Clean the inputs
+    // We erase the border
     for (let k in sortedAnswers) {
       coordinatesArray({ ...sortedAnswers[k] }, false);
     }
@@ -200,7 +200,7 @@ function App() {
         let { word, direction, column, row } = { ...sortedAnswers[i] };
         [...word].map((char) => {
           const input = document.getElementById(`${column},${row}`);
-          if (char !== input.value) {
+          if (char !== input.value.toLowerCase()) {
             wrongCharArray.push(`${column},${row}`);
           }
           if (direction === 0) row++;
