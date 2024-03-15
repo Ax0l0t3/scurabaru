@@ -216,7 +216,7 @@ function App() {
 
   return (
     <div className="snow-background">
-      {passWord !== "jjjjj"
+      {passWord !== "B3M14"
         ? createPortal(
             <ModalPassword
               inputChange={passwordChange}

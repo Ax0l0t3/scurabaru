@@ -9,7 +9,7 @@ export const ModalPassword = ({
       <div className="flex items-center flex-col justify-center rounded-md bg-red-100 w-1/2 h-1/2">
         <h1 className="text-size-2xl text-[#331010]">PSWD</h1>
         <input
-          placeholder="Five letters"
+          placeholder="Five characters"
           className="rounded-full"
           onChange={inputChange}
           value={passwordValue}
