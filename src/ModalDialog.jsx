@@ -5,7 +5,10 @@ export const ModalDialog = () => {
         <h1 className="text-2xl">FELICIDADES!!</h1>
         <div className="flex mx-4 pt-8">
           <div className="w-1/2 flex items-center justify-center">
-            <img src="../public/next_hint.png" alt="This should be the image of the next hint" />
+            <img
+              src="/next_hint.PNG"
+              alt="This should be the image of the next hint"
+            />
           </div>
           <div className="flex items-center justify-center flex-col w-1/2">
             <p className="text-center">Excelente huitlaconcha</p>

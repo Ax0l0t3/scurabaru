@@ -164,7 +164,7 @@ function App() {
     setAnswersState(true);
   };
 
-  const passwordChange = (e) => setPassword(e.target.value);
+  const passwordChange = (e) => setPassword(e.target.value.toUpperCase());
 
   useEffect(() => {
     gridPoints = [];
